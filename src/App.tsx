@@ -1422,18 +1422,13 @@ export default function App() {
 
         {currentModule === 'recursion' && (
           <motion.div
-            key="comingsoon"
+            key="recursion"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex-1 flex items-center justify-center bg-slate-950"
           >
-            <div className="text-center">
-              <div className="text-6xl mb-4">🚧</div>
-              <h2 className="text-2xl font-bold text-white mb-2">Module Under Construction</h2>
-              <p className="text-slate-400">This module is coming soon. Stay tuned!</p>
-            </div>
+            <RecursionModule onBackToDashboard={() => setCurrentModule('home')} />
           </motion.div>
         )}
       </AnimatePresence>

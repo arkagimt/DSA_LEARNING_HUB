@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Database, Code, Server, RotateCcw, Activity,
+    Database, Code, RotateCcw, Activity,
     ArrowRight, ChevronDown, ChevronUp, Network,
     BookOpen, TrendingUp, AlertTriangle, Crown
 } from 'lucide-react';

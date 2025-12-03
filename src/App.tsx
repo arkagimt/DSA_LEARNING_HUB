@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Database, Code, Cpu, Network, Server, Play,
   RotateCcw, Activity, ArrowRight, HardDrive, Pause, Zap,
-  ChevronRight, Hash, MoveHorizontal, Maximize2, GitBranch, AlertCircle
+  ChevronRight, Hash, MoveHorizontal, Maximize2, GitBranch, AlertCircle,
+  ChevronDown, ChevronUp, BookOpen, TrendingUp
 } from 'lucide-react';
 import {
   XAxis, YAxis, CartesianGrid,
@@ -146,6 +147,7 @@ const ArraysHashingModule = ({ onBackToDashboard }: { onBackToDashboard: () => v
 
   // UI State
   const [showDistinctTooltip, setShowDistinctTooltip] = useState(false);
+  const [showTheoryDeck, setShowTheoryDeck] = useState(true);
 
   // Derived State - Python Hash Set
   const pythonHashSet = useMemo(() => {
@@ -373,6 +375,142 @@ const ArraysHashingModule = ({ onBackToDashboard }: { onBackToDashboard: () => v
       </div>
 
       <div className="p-6 w-full space-y-6">
+
+        {/* Theory Deck (Collapsible) */}
+        <motion.div
+          className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/30 rounded-xl overflow-hidden"
+          initial={false}
+        >
+          <button
+            onClick={() => setShowTheoryDeck(!showTheoryDeck)}
+            className="w-full flex items-center justify-between p-6 hover:bg-blue-900/10 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <BookOpen size={24} className="text-blue-400" />
+              <h3 className="text-xl font-bold text-white">Theory Deck: Arrays & Hashing Pattern</h3>
+            </div>
+            {showTheoryDeck ? <ChevronUp className="text-blue-400" /> : <ChevronDown className="text-blue-400" />}
+          </button>
+
+          <AnimatePresence>
+            {showTheoryDeck && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="p-6 pt-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                  {/* Concept: RAM Direct Access */}
+                  <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                    <h4 className="font-bold text-blue-300 mb-3 flex items-center gap-2">
+                      <Code size={16} />
+                      The Concept
+                    </h4>
+                    <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                      <strong className="text-blue-400">RAM Direct Access:</strong> Using a hash set/dictionary allows us to check if an element exists in <strong className="text-green-400">O(1)</strong> time—instant lookup!
+                    </p>
+                    <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                      <strong className="text-red-400">Linear Scan:</strong> Without hashing, we'd need to check every element sequentially—<strong className="text-red-400">O(N)</strong> time.
+                    </p>
+                    <div className="text-xs text-slate-500 bg-slate-800/50 p-2 rounded font-mono">
+                      seen = set()<br />
+                      if val in seen:  # O(1) lookup<br />
+                      &nbsp;&nbsp;return "duplicate"
+                    </div>
+                  </div>
+
+                  {/* Big O Lesson */}
+                  <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                    <h4 className="font-bold text-orange-300 mb-3 flex items-center gap-2">
+                      <TrendingUp size={16} />
+                      The Big O Lesson
+                    </h4>
+                    <div className="space-y-3 text-sm">
+                      <div>
+                        <div className="text-green-400 font-bold">Hashing: O(1) per lookup</div>
+                        <div className="text-xs text-slate-400">Direct memory access via hash function</div>
+                      </div>
+                      <div>
+                        <div className="text-red-400 font-bold">Linear Search: O(N) per lookup</div>
+                        <div className="text-xs text-slate-400">Must scan through entire array</div>
+                      </div>
+                      <div className="bg-orange-900/20 border border-orange-500/30 rounded p-2">
+                        <div className="text-orange-300 font-bold mb-1">Overall Complexity</div>
+                        <div className="text-xs text-slate-400">
+                          Hashing: <strong className="text-green-300">O(N)</strong> total<br />
+                          Brute Force: <strong className="text-red-300">O(N²)</strong> total
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Visual: Array Direct Access */}
+                  <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                    <h4 className="font-bold text-cyan-300 mb-3 flex items-center gap-2">
+                      <Zap size={16} />
+                      Interactive: Direct Access
+                    </h4>
+                    <p className="text-xs text-slate-400 mb-3">
+                      Accessing index[4] in an array is <strong className="text-cyan-300">instant</strong>—no matter the array size!
+                    </p>
+                    <div className="grid grid-cols-5 gap-1 mb-3">
+                      {[10, 20, 30, 40, 50].map((val, idx) => (
+                        <div
+                          key={idx}
+                          className={`h-10 flex items-center justify-center text-xs font-mono font-bold rounded transition-all ${idx === 4
+                              ? 'bg-cyan-500/30 border-2 border-cyan-400 text-cyan-300 scale-110'
+                              : 'bg-slate-800 border border-slate-700 text-slate-400'
+                            }`}
+                        >
+                          {val}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-[10px] text-center text-slate-500 font-mono mb-2">
+                      [0] [1] [2] [3] [4] ← Direct jump to index 4
+                    </div>
+                    <div className="text-xs text-cyan-400 bg-cyan-900/20 border border-cyan-500/30 rounded p-2">
+                      <strong>Hash Table:</strong> Converts key → index instantly using a hash function.
+                    </div>
+                  </div>
+
+                  {/* DE Insight: Data Skew */}
+                  <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 md:col-span-2 lg:col-span-3">
+                    <div className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+                      <AlertCircle size={14} />
+                      DE Insight: Data Skew (Hot Partitions)
+                    </div>
+                    <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                      In distributed systems like <strong className="text-blue-300">Snowflake</strong> or <strong className="text-blue-300">Spark</strong>,
+                      data is partitioned by hashing keys. If keys aren't distributed evenly, one node gets overloaded—this is called a <strong className="text-orange-300">"Hot Partition"</strong>.
+                    </p>
+                    <div className="grid grid-cols-3 gap-3 text-xs">
+                      <div className="bg-green-900/20 border border-green-500/30 rounded p-2">
+                        <div className="font-bold text-green-400 mb-1">Node 1 (20%)</div>
+                        <div className="text-slate-400">Balanced load</div>
+                      </div>
+                      <div className="bg-green-900/20 border border-green-500/30 rounded p-2">
+                        <div className="font-bold text-green-400 mb-1">Node 2 (25%)</div>
+                        <div className="text-slate-400">Balanced load</div>
+                      </div>
+                      <div className="bg-red-900/20 border border-red-500/30 rounded p-2">
+                        <div className="font-bold text-red-400 mb-1">Node 3 (55%) 🔥</div>
+                        <div className="text-slate-400">Hot Partition!</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 text-xs text-slate-400">
+                      <strong className="text-orange-300">Solution:</strong> Use composite keys or salting to distribute data more evenly across nodes.
+                    </div>
+                  </div>
+
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
         {/* --- The Dual Engine Visualization --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[600px]">

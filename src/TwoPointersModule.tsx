@@ -515,52 +515,100 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
                                 )}
                             </div>
 
-                            {/* LAG Visualization - Table View */}
-                            <div className="flex-1 bg-slate-950 rounded-lg border border-slate-700 p-4 overflow-auto">
-                                <table className="w-full text-xs font-mono">
-                                    <thead>
-                                        <tr className="text-slate-500 border-b border-slate-800">
-                                            <th className="p-2 text-left">ROW</th>
-                                            <th className="p-2 text-left">timestamp</th>
-                                            <th className="p-2 text-left">LAG(timestamp)</th>
-                                            <th className="p-2 text-left">is_duplicate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {data.map((val, idx) => (
-                                            <motion.tr
-                                                key={idx}
-                                                className={`border-b border-slate-800/50 transition-all ${lagComparison === idx ? 'bg-blue-500/20' :
-                                                    lagComparison !== null && lagComparison > idx ? 'bg-green-900/10' :
-                                                        ''
-                                                    }`}
-                                                initial={{ opacity: 0.3 }}
-                                                animate={{
-                                                    opacity: sortPhase === 'processing' && lagComparison !== null && lagComparison >= idx ? 1 : 0.3
-                                                }}
-                                            >
-                                                <td className="p-2 text-slate-500">{idx + 1}</td>
-                                                <td className="p-2 text-white font-bold">{val}</td>
-                                                <td className="p-2 text-slate-400">
-                                                    {idx === 0 ? 'NULL' : data[idx - 1]}
-                                                </td>
-                                                <td className="p-2">
-                                                    {sortPhase === 'processing' && lagComparison !== null && lagComparison >= idx ? (
-                                                        idx === 0 ? (
-                                                            <span className="text-green-400">FALSE</span>
-                                                        ) : val === data[idx - 1] ? (
-                                                            <span className="text-red-400 font-bold">TRUE</span>
-                                                        ) : (
-                                                            <span className="text-green-400">FALSE</span>
-                                                        )
-                                                    ) : (
-                                                        <span className="text-slate-600">—</span>
-                                                    )}
-                                                </td>
-                                            </motion.tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                            {/* LAG Visualization - Table View with Shuffle Animation */}
+                            <div className="flex-1 bg-slate-950 rounded-lg border border-slate-700 p-4 overflow-hidden">
+                                {/* Sorting Phase: Show Shuffling Blocks */}
+                                {sortPhase === 'sorting' && (
+                                    <div className="h-full flex flex-col items-center justify-center gap-4">
+                                        <div className="text-sm font-bold text-yellow-400 flex items-center gap-2">
+                                            <Network size={16} className="animate-pulse" />
+                                            ORDER BY timestamp (Network Shuffle)
+                                        </div>
+                                        <div className="flex gap-2 flex-wrap justify-center">
+                                            {[...data].map((val, idx) => (
+                                                <motion.div
+                                                    key={`shuffle-${idx}`}
+                                                    className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-lg"
+                                                    animate={{
+                                                        x: [0, Math.random() * 40 - 20, 0],
+                                                        y: [0, Math.random() * 40 - 20, 0],
+                                                        rotate: [0, Math.random() * 20 - 10, 0],
+                                                        scale: [1, 1.1, 1]
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.8,
+                                                        repeat: Infinity,
+                                                        delay: idx * 0.1
+                                                    }}
+                                                >
+                                                    {val}
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                        <div className="text-xs text-slate-400 text-center max-w-md">
+                                            💰 <strong className="text-yellow-400">Expensive Operation:</strong> Data is being redistributed across compute nodes based on hash(timestamp). This network shuffle is the hidden cost of distributed sorting.
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Processing/Complete: Show Sorted Table */}
+                                {(sortPhase === 'processing' || sortPhase === 'complete') && (
+                                    <div className="h-full overflow-auto">
+                                        <table className="w-full text-xs font-mono">
+                                            <thead>
+                                                <tr className="text-slate-500 border-b border-slate-800">
+                                                    <th className="p-2 text-left">ROW</th>
+                                                    <th className="p-2 text-left">timestamp</th>
+                                                    <th className="p-2 text-left">LAG(timestamp)</th>
+                                                    <th className="p-2 text-left">is_duplicate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {data.map((val, idx) => (
+                                                    <motion.tr
+                                                        key={idx}
+                                                        className={`border-b border-slate-800/50 transition-all ${lagComparison === idx ? 'bg-blue-500/20' :
+                                                            lagComparison !== null && lagComparison > idx ? 'bg-green-900/10' :
+                                                                ''
+                                                            }`}
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{
+                                                            opacity: sortPhase === 'processing' && lagComparison !== null && lagComparison >= idx ? 1 : 0.3,
+                                                            x: 0
+                                                        }}
+                                                        transition={{ duration: 0.3, delay: idx * 0.05 }}
+                                                    >
+                                                        <td className="p-2 text-slate-500">{idx + 1}</td>
+                                                        <td className="p-2 text-white font-bold">{val}</td>
+                                                        <td className="p-2 text-slate-400">
+                                                            {idx === 0 ? 'NULL' : data[idx - 1]}
+                                                        </td>
+                                                        <td className="p-2">
+                                                            {sortPhase === 'processing' && lagComparison !== null && lagComparison >= idx ? (
+                                                                idx === 0 ? (
+                                                                    <span className="text-green-400">FALSE</span>
+                                                                ) : val === data[idx - 1] ? (
+                                                                    <span className="text-red-400 font-bold">TRUE</span>
+                                                                ) : (
+                                                                    <span className="text-green-400">FALSE</span>
+                                                                )
+                                                            ) : (
+                                                                <span className="text-slate-600">—</span>
+                                                            )}
+                                                        </td>
+                                                    </motion.tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+
+                                {/* Idle State */}
+                                {sortPhase === 'idle' && (
+                                    <div className="h-full flex items-center justify-center text-sm text-slate-600">
+                                        Click "Run Snowflake Query" to see ORDER BY + LAG() in action
+                                    </div>
+                                )}
                             </div>
 
                             {/* SQL Query */}

@@ -100,7 +100,7 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
           </div>
 
           <button
-            onClick={() => setCurrentModule('stacksqueues')}
+            onClick={() => onModuleSelect('stacksqueues')}
             className="bg-slate-900 border border-purple-500/50 hover:border-purple-400 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
           >
             <Server size={32} className="text-purple-400 mb-4" />

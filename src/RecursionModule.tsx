@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Database, Code, Server, Play, RotateCcw, Activity,
-    ArrowRight, Pause, ChevronDown, ChevronUp, Zap,
+    Database, Code, Server, RotateCcw, Activity,
+    ArrowRight, ChevronDown, ChevronUp, Zap,
     BookOpen, TrendingUp, GitBranch, Layers, AlertTriangle
 } from 'lucide-react';
 
@@ -26,7 +26,6 @@ const BOM_DATA: Record<string, BOMNode> = {
 interface StackFrame {
     node: string;
     depth: number;
-    phase: 'enter' | 'exit';
 }
 
 // --- Helper Components ---
@@ -67,7 +66,7 @@ export const RecursionModule = ({ onBackToDashboard }: { onBackToDashboard: () =
         return new Promise((resolve) => {
             setTimeout(() => {
                 // Enter phase
-                const newStack = [...stack, { node, depth, phase: 'enter' }];
+                const newStack = [...stack, { node, depth }];
                 setCallStack(newStack);
                 setVisitedNodes([...visited, node]);
                 setCurrentDepth(depth);
@@ -446,8 +445,8 @@ export const RecursionModule = ({ onBackToDashboard }: { onBackToDashboard: () =
                                                 initial={{ scaleY: 0, opacity: 0 }}
                                                 animate={{ scaleY: 1, opacity: 1 }}
                                                 className={`px-3 py-2 rounded font-mono text-xs ${idx === callStack.length - 1
-                                                        ? 'bg-purple-500/30 border-2 border-purple-400 font-bold'
-                                                        : 'bg-slate-800 border border-slate-700'
+                                                    ? 'bg-purple-500/30 border-2 border-purple-400 font-bold'
+                                                    : 'bg-slate-800 border border-slate-700'
                                                     }`}
                                             >
                                                 {frame.node} (depth {frame.depth})

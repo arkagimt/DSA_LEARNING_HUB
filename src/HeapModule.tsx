@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Database, Code, Server, Play, RotateCcw, Activity,
-    ArrowRight, Pause, ChevronDown, ChevronUp, Zap, Network,
-    BookOpen, TrendingUp, AlertTriangle, ArrowUp, Crown
+    Database, Code, Server, RotateCcw, Activity,
+    ArrowRight, ChevronDown, ChevronUp, Network,
+    BookOpen, TrendingUp, AlertTriangle, Crown
 } from 'lucide-react';
 import {
     XAxis, YAxis, CartesianGrid,
@@ -51,7 +51,6 @@ export const HeapModule = ({ onBackToDashboard }: { onBackToDashboard: () => voi
     const [heap, setHeap] = useState<Job[]>([]);
     const [nextJobId, setNextJobId] = useState(1);
     const [bubblingIndex, setBubblingIndex] = useState<number | null>(null);
-    const [isProcessing, setIsProcessing] = useState(false);
 
     // Distributed Top-K State
     const [workers, setWorkers] = useState<Job[][]>([]);
@@ -195,7 +194,6 @@ export const HeapModule = ({ onBackToDashboard }: { onBackToDashboard: () => voi
         setHeap([]);
         setNextJobId(1);
         setBubblingIndex(null);
-        setIsProcessing(false);
         setWorkers([]);
         setWorkerTopK([[], [], []]);
         setMasterTopK([]);

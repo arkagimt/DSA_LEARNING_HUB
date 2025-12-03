@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Database, Code, Server, Play, RotateCcw, Activity,
     ArrowRight, Pause, ChevronDown, ChevronUp, Zap, Network,
-    BookOpen, TrendingUp, Layers, AlertTriangle, ArrowDown, ArrowUp
+    BookOpen, TrendingUp, Layers, AlertTriangle
 } from 'lucide-react';
 import {
     XAxis, YAxis, CartesianGrid,
@@ -36,7 +36,6 @@ export const StacksQueuesModule = ({ onBackToDashboard }: { onBackToDashboard: (
     const [mode, setMode] = useState<'stack' | 'queue'>('queue');
     const [jobs, setJobs] = useState<number[]>([]);
     const [isProcessing, setIsProcessing] = useState(false);
-    const [processedJobs, setProcessedJobs] = useState<number[]>([]);
     const [nextJobId, setNextJobId] = useState(1);
 
     // Queue Depth Tracking
@@ -47,7 +46,6 @@ export const StacksQueuesModule = ({ onBackToDashboard }: { onBackToDashboard: (
     // Distributed State
     const [kafkaTriggered, setKafkaTriggered] = useState(false);
     const [consumerSpeed, setConsumerSpeed] = useState(1);
-    const [producerBurst, setProducerBurst] = useState(false);
 
     // UI State
     const [showTheoryDeck, setShowTheoryDeck] = useState(false);
@@ -82,13 +80,13 @@ export const StacksQueuesModule = ({ onBackToDashboard }: { onBackToDashboard: (
             setJobs(prev => prev.slice(1));
         }
 
-        setProcessedJobs(prev => [...prev, processed]);
+
         setExecutionLog(log => [...log, `✓ Job #${processed} processed (${mode.toUpperCase()})`].slice(-4));
     };
 
     const reset = () => {
         setJobs([]);
-        setProcessedJobs([]);
+
         setNextJobId(1);
         setIsProcessing(false);
         setKafkaTriggered(false);

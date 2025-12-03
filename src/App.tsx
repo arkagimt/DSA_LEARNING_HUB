@@ -10,6 +10,7 @@ import {
   Tooltip, ResponsiveContainer, Area, AreaChart
 } from 'recharts';
 import { TwoPointersModule } from './TwoPointersModule';
+import { SlidingWindowModule } from './SlidingWindowModule';
 
 // --- Types & Constants ---
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
@@ -73,14 +74,18 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
             </div>
           </button>
 
-          <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-6 text-left opacity-50 cursor-not-allowed">
+          <button
+            onClick={() => onModuleSelect('slidingwindow')}
+            className="bg-slate-900 border border-slate-700 rounded-xl p-6 text-left hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all group"
+          >
             <Maximize2 size={32} className="text-purple-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Sliding Window</h3>
-            <p className="text-slate-400 text-sm mb-4">Coming Soon</p>
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
-              <span>Under Development</span>
+            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">Sliding Window</h3>
+            <p className="text-slate-400 text-sm mb-4">Learn fixed-size window optimization with Server Health Monitor</p>
+            <div className="flex items-center gap-2 text-xs text-purple-400 font-mono">
+              <span>Start Learning</span>
+              <ChevronRight size={14} />
             </div>
-          </div>
+          </button>
 
           <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-6 text-left opacity-50 cursor-not-allowed">
             <GitBranch size={32} className="text-orange-400 mb-4" />
@@ -1232,7 +1237,20 @@ export default function App() {
           </motion.div>
         )}
 
-        {(currentModule === 'slidingwindow' || currentModule === 'recursion') && (
+        {currentModule === 'slidingwindow' && (
+          <motion.div
+            key="slidingwindow"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="flex-1"
+          >
+            <SlidingWindowModule onBackToDashboard={() => setCurrentModule('home')} />
+          </motion.div>
+        )}
+
+        {currentModule === 'recursion' && (
           <motion.div
             key="comingsoon"
             initial={{ opacity: 0, x: 20 }}

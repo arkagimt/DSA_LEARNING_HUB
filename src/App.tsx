@@ -9,6 +9,7 @@ import {
   XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Area, AreaChart
 } from 'recharts';
+import { TwoPointersModule } from './TwoPointersModule';
 
 // --- Types & Constants ---
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
@@ -59,14 +60,18 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
             </div>
           </button>
 
-          <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-6 text-left opacity-50 cursor-not-allowed">
+          <button
+            onClick={() => onModuleSelect('twopointers')}
+            className="bg-slate-900 border border-slate-700 rounded-xl p-6 text-left hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all group"
+          >
             <MoveHorizontal size={32} className="text-green-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Two Pointers</h3>
-            <p className="text-slate-400 text-sm mb-4">Coming Soon</p>
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
-              <span>Under Development</span>
+            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-green-300 transition-colors">Two Pointers</h3>
+            <p className="text-slate-400 text-sm mb-4">Learn in-place deduplication with Read/Write pointers</p>
+            <div className="flex items-center gap-2 text-xs text-green-400 font-mono">
+              <span>Start Learning</span>
+              <ChevronRight size={14} />
             </div>
-          </div>
+          </button>
 
           <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-6 text-left opacity-50 cursor-not-allowed">
             <Maximize2 size={32} className="text-purple-400 mb-4" />
@@ -1214,7 +1219,20 @@ export default function App() {
           </motion.div>
         )}
 
-        {(currentModule === 'twopointers' || currentModule === 'slidingwindow' || currentModule === 'recursion') && (
+        {currentModule === 'twopointers' && (
+          <motion.div
+            key="twopointers"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="flex-1"
+          >
+            <TwoPointersModule onBackToDashboard={() => setCurrentModule('home')} />
+          </motion.div>
+        )}
+
+        {(currentModule === 'slidingwindow' || currentModule === 'recursion') && (
           <motion.div
             key="comingsoon"
             initial={{ opacity: 0, x: 20 }}

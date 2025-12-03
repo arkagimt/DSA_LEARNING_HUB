@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Database, Code, Cpu, Network, Server, Play,
-  RotateCcw, Activity, ArrowRight, HardDrive, Pause, Zap,
+  RotateCcw, Activity, ArrowRight, HardDrive, Pause, Search, Zap,
   ChevronRight, Hash, MoveHorizontal, Maximize2, GitBranch, AlertCircle,
   ChevronDown, ChevronUp, BookOpen, TrendingUp
 } from 'lucide-react';
@@ -1488,4 +1488,5 @@ export default function App() {
     </div>
   );
 }
-```
+
+export default App;

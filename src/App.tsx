@@ -13,6 +13,7 @@ import {
 import { TwoPointersModule } from './TwoPointersModule';
 import { SlidingWindowModule } from './SlidingWindowModule';
 import { StacksQueuesModule } from './StacksQueuesModule';
+import { RecursionModule } from './RecursionModule';
 
 // --- Types & Constants ---
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
@@ -90,14 +91,18 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
             </div>
           </button>
 
-          <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-6 text-left opacity-50 cursor-not-allowed">
+          <button
+            onClick={() => onModuleSelect('recursion')}
+            className="bg-slate-900 border border-orange-500/50 hover:border-orange-400 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
+          >
             <GitBranch size={32} className="text-orange-400 mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Recursion & Backtracking</h3>
-            <p className="text-slate-400 text-sm mb-4">Coming Soon</p>
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
-              <span>Under Development</span>
+            <p className="text-slate-400 text-sm mb-4">Explore BOM explosion with DFS vs SQL CTE</p>
+            <div className="flex items-center gap-2 text-xs text-orange-400 font-mono">
+              <span>Start Learning</span>
+              <ChevronRight size={14} />
             </div>
-          </div>
+          </button>
 
           <button
             onClick={() => onModuleSelect('stacksqueues')}

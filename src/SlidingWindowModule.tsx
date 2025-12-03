@@ -50,7 +50,7 @@ export const SlidingWindowModule = ({ onBackToDashboard }: { onBackToDashboard: 
     const [processingRow, setProcessingRow] = useState<number | null>(null);
 
     // UI State
-    const [showTheoryDeck, setShowTheoryDeck] = useState(true);
+    const [showTheoryDeck, setShowTheoryDeck] = useState(false);
     const [nValue, setNValue] = useState(1000);
     const [executionLog, setExecutionLog] = useState<string[]>([]);
 

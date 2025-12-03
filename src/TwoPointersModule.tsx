@@ -48,7 +48,7 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
     const [lagComparison, setLagComparison] = useState<number | null>(null);
 
     // UI State
-    const [showTheoryDeck, setShowTheoryDeck] = useState(true);
+    const [showTheoryDeck, setShowTheoryDeck] = useState(false);
     const [nValue, setNValue] = useState(1000);
     const [showSpaceComplexity, setShowSpaceComplexity] = useState(false);
     const [executionLog, setExecutionLog] = useState<string[]>([]);

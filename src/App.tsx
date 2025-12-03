@@ -147,7 +147,7 @@ const ArraysHashingModule = ({ onBackToDashboard }: { onBackToDashboard: () => v
 
   // UI State
   const [showDistinctTooltip, setShowDistinctTooltip] = useState(false);
-  const [showTheoryDeck, setShowTheoryDeck] = useState(true);
+  const [showTheoryDeck, setShowTheoryDeck] = useState(false);
 
   // Derived State - Python Hash Set
   const pythonHashSet = useMemo(() => {
@@ -461,8 +461,8 @@ const ArraysHashingModule = ({ onBackToDashboard }: { onBackToDashboard: () => v
                         <div
                           key={idx}
                           className={`h-10 flex items-center justify-center text-xs font-mono font-bold rounded transition-all ${idx === 4
-                              ? 'bg-cyan-500/30 border-2 border-cyan-400 text-cyan-300 scale-110'
-                              : 'bg-slate-800 border border-slate-700 text-slate-400'
+                            ? 'bg-cyan-500/30 border-2 border-cyan-400 text-cyan-300 scale-110'
+                            : 'bg-slate-800 border border-slate-700 text-slate-400'
                             }`}
                         >
                           {val}

@@ -257,9 +257,10 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
                         {showTheoryDeck ? <ChevronUp className="text-purple-400" /> : <ChevronDown className="text-purple-400" />}
                     </button>
 
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait" initial={false}>
                         {showTheoryDeck && (
                             <motion.div
+                                key="theory-deck-content"
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}

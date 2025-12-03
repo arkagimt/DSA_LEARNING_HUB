@@ -18,7 +18,8 @@ import { StacksQueuesModule } from './StacksQueuesModule';
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
 const ANIMATION_SPEED = 1200; // ms per step
 
-type ModuleType = 'home' | 'arrays' | 'twopointers' | 'slidingwindow' | 'recursion';
+type ModuleType = 'home' | 'arrays' | 'twopointers' | 'slidingwindow' | 'stacksqueues' | 'recursion';
+
 
 // --- Helper Components ---
 
@@ -99,7 +100,7 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
           </div>
 
           <button
-            onClick={() => setCurrentPage('stacksqueues')}
+            onClick={() => setCurrentModule('stacksqueues')}
             className="bg-slate-900 border border-purple-500/50 hover:border-purple-400 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
           >
             <Server size={32} className="text-purple-400 mb-4" />
@@ -1399,6 +1400,18 @@ export default function App() {
             className="flex-1"
           >
             <SlidingWindowModule onBackToDashboard={() => setCurrentModule('home')} />
+          </motion.div>
+        )}
+
+        {currentModule === 'stacksqueues' && (
+          <motion.div
+            key="stacksqueues"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <StacksQueuesModule onBackToDashboard={() => setCurrentModule('home')} />
           </motion.div>
         )}
 

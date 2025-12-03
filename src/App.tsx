@@ -16,12 +16,13 @@ import { StacksQueuesModule } from './StacksQueuesModule';
 import { RecursionModule } from './RecursionModule';
 import { HeapModule } from './HeapModule';
 import { BinarySearchModule } from './BinarySearchModule';
+import { GraphModule } from './GraphModule';
 
 // --- Types & Constants ---
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
 const ANIMATION_SPEED = 1200; // ms per step
 
-type ModuleType = 'home' | 'arrays' | 'twopointers' | 'slidingwindow' | 'stacksqueues' | 'recursion' | 'heaps' | 'binarysearch';
+type ModuleType = 'home' | 'arrays' | 'twopointers' | 'slidingwindow' | 'stacksqueues' | 'recursion' | 'heaps' | 'binarysearch' | 'graphs';
 
 
 
@@ -141,6 +142,19 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
             <h3 className="text-xl font-bold text-white mb-2">Binary Search</h3>
             <p className="text-slate-400 text-sm mb-4">O(log N) lookup with Snowflake partition pruning</p>
             <div className="flex items-center gap-2 text-xs text-indigo-400 font-mono">
+              <span>Start Learning</span>
+              <ChevronRight size={14} />
+            </div>
+          </button>
+
+          <button
+            onClick={() => onModuleSelect('graphs')}
+            className="bg-slate-900 border border-cyan-500/50 hover:border-cyan-400 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
+          >
+            <GitBranch size={32} className="text-cyan-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Graph Traversal (BFS & DFS)</h3>
+            <p className="text-slate-400 text-sm mb-4">Airflow DAG failure and data lineage impact analysis</p>
+            <div className="flex items-center gap-2 text-xs text-cyan-400 font-mono">
               <span>Start Learning</span>
               <ChevronRight size={14} />
             </div>
@@ -1482,6 +1496,18 @@ export default function App() {
             transition={{ duration: 0.3 }}
           >
             <BinarySearchModule onBackToDashboard={() => setCurrentModule('home')} />
+          </motion.div>
+        )}
+
+        {currentModule === 'graphs' && (
+          <motion.div
+            key="graphs"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <GraphModule onBackToDashboard={() => setCurrentModule('home')} />
           </motion.div>
         )}
       </AnimatePresence>

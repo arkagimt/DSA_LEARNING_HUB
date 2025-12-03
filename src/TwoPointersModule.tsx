@@ -53,6 +53,21 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
     const [showSpaceComplexity, setShowSpaceComplexity] = useState(false);
     const [executionLog, setExecutionLog] = useState<string[]>([]);
 
+    // Generate Chart Data for Big O comparison
+    const chartData = useMemo(() => {
+        const points = [];
+        const stepSize = nValue / 20;
+        for (let i = 1; i <= 20; i++) {
+            const n = Math.floor(i * stepSize);
+            points.push({
+                n,
+                twoPointers: n,
+                nestedLoops: Math.floor((n * n) / 1000), // Scaled for visibility
+            });
+        }
+        return points;
+    }, [nValue]);
+
     // Handlers
     const handleParse = () => {
         try {
@@ -157,22 +172,6 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
         }
     }, [pythonComplete, snowflakeTriggered]);
 
-    // Generate Chart Data
-    const chartData = useMemo(() => {
-        const points = [];
-        const stepSize = nValue / 20;
-        for (let i = 1; i <= 20; i++) {
-            const n = Math.floor(i * stepSize);
-            points.push({
-                n,
-                twopointers: n,
-                bruteforce: Math.floor((n * n) / 1000),
-                spaceTwoPointers: 1,
-                spaceBruteForce: n,
-            });
-        }
-        return points;
-    }, [nValue]);
 
     return (
         <div className="flex-1 flex flex-col h-full overflow-y-auto">
@@ -443,19 +442,7 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
                                             {/* Chart */}
                                             <div className="lg:col-span-2 h-64 bg-slate-950 rounded-lg border border-slate-800 p-4">
                                                 <ResponsiveContainer width="100%" height="100%">
-                                                    <AreaChart data={useMemo(() => {
-                                                        const points = [];
-                                                        const stepSize = nValue / 20;
-                                                        for (let i = 1; i <= 20; i++) {
-                                                            const n = Math.floor(i * stepSize);
-                                                            points.push({
-                                                                n,
-                                                                twoPointers: n,
-                                                                nestedLoops: Math.floor((n * n) / 1000), // Scaled for visibility
-                                                            });
-                                                        }
-                                                        return points;
-                                                    }, [nValue])} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                                                    <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
                                                         <defs>
                                                             <linearGradient id="colorTwoPointers" x1="0" y1="0" x2="0" y2="1">
                                                                 <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />

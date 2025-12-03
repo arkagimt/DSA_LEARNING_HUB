@@ -266,56 +266,58 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
                                 transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                             >
-                                <div className="p-6 pt-0 grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="p-6 pt-0 space-y-6">
 
-                                    {/* Concept */}
-                                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
-                                        <h4 className="font-bold text-purple-300 mb-3 flex items-center gap-2">
-                                            <Code size={16} />
-                                            The Concept
-                                        </h4>
-                                        <p className="text-sm text-slate-300 leading-relaxed mb-3">
-                                            Use <strong className="text-purple-400">two pointers</strong> moving at different speeds:
-                                            <code className="bg-slate-800 px-2 py-0.5 rounded text-green-400 ml-1">Read</code> (fast) scans ahead,
-                                            <code className="bg-slate-800 px-2 py-0.5 rounded text-blue-400 ml-1">Write</code> (slow) tracks the position for unique values.
-                                        </p>
-                                        <div className="text-xs text-slate-500 bg-slate-800/50 p-2 rounded font-mono">
-                                            if arr[read] != arr[write-1]:<br />
-                                            &nbsp;&nbsp;arr[write] = arr[read]<br />
-                                            &nbsp;&nbsp;write += 1
-                                        </div>
-                                    </div>
+                                    {/* Top Row: Concept, Big O Lesson, Visual */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                                    {/* Math */}
-                                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
-                                        <h4 className="font-bold text-blue-300 mb-3 flex items-center gap-2">
-                                            <TrendingUp size={16} />
-                                            The Math
-                                        </h4>
-                                        <div className="space-y-3 text-sm">
-                                            <div>
-                                                <div className="text-green-400 font-bold">Two Pointers: O(N)</div>
-                                                <div className="text-xs text-slate-400">Single pass through array</div>
-                                            </div>
-                                            <div>
-                                                <div className="text-red-400 font-bold">Brute Force: O(N²)</div>
-                                                <div className="text-xs text-slate-400">Nested loops checking each pair</div>
-                                            </div>
-                                            <div className="bg-purple-900/20 border border-purple-500/30 rounded p-2">
-                                                <div className="text-purple-300 font-bold mb-1">Space: O(1)</div>
-                                                <div className="text-xs text-slate-400">In-place modification, no extra array needed!</div>
+                                        {/* Concept */}
+                                        <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                                            <h4 className="font-bold text-purple-300 mb-3 flex items-center gap-2">
+                                                <Code size={16} />
+                                                The Concept
+                                            </h4>
+                                            <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                                                Use <strong className="text-purple-400">two pointers</strong> moving at different speeds:
+                                                <code className="bg-slate-800 px-2 py-0.5 rounded text-green-400 ml-1">Read</code> (fast) scans ahead,
+                                                <code className="bg-slate-800 px-2 py-0.5 rounded text-blue-400 ml-1">Write</code> (slow) tracks the position for unique values.
+                                            </p>
+                                            <div className="text-xs text-slate-500 bg-slate-800/50 p-2 rounded font-mono">
+                                                if arr[read] != arr[write-1]:<br />
+                                                &nbsp;&nbsp;arr[write] = arr[read]<br />
+                                                &nbsp;&nbsp;write += 1
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Visual Aid + DE Insight */}
-                                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 flex flex-col gap-4">
-                                        <div>
+                                        {/* Big O Lesson */}
+                                        <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
                                             <h4 className="font-bold text-orange-300 mb-3 flex items-center gap-2">
+                                                <TrendingUp size={16} />
+                                                The Big O Lesson
+                                            </h4>
+                                            <div className="space-y-3 text-sm">
+                                                <div>
+                                                    <div className="text-green-400 font-bold">Two Pointers: O(N)</div>
+                                                    <div className="text-xs text-slate-400">Single pass—each element touched once</div>
+                                                </div>
+                                                <div>
+                                                    <div className="text-red-400 font-bold">Brute Force: O(N²)</div>
+                                                    <div className="text-xs text-slate-400">Nested loops comparing each pair</div>
+                                                </div>
+                                                <div className="bg-purple-900/20 border border-purple-500/30 rounded p-2">
+                                                    <div className="text-purple-300 font-bold mb-1">Space: O(1)</div>
+                                                    <div className="text-xs text-slate-400">In-place modification—no extra array!</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Visual Aid */}
+                                        <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                                            <h4 className="font-bold text-cyan-300 mb-3 flex items-center gap-2">
                                                 <ArrowRightLeft size={16} />
                                                 Visual Concept
                                             </h4>
-                                            <div className="relative h-16 flex items-center justify-center bg-slate-950 rounded border border-slate-800">
+                                            <div className="relative h-16 flex items-center justify-center bg-slate-950 rounded border border-slate-800 mb-3">
                                                 {/* Looping animation of two arrows */}
                                                 <motion.div
                                                     className="absolute left-2"
@@ -333,16 +335,181 @@ export const TwoPointersModule = ({ onBackToDashboard }: { onBackToDashboard: ()
                                                 </motion.div>
                                                 <div className="text-xs text-slate-600 absolute right-2">Converging pointers</div>
                                             </div>
+                                            <p className="text-xs text-slate-400">
+                                                Fast pointer explores, slow pointer builds the result.
+                                            </p>
                                         </div>
 
-                                        <div className="bg-blue-900/20 border border-blue-500/30 rounded p-3">
-                                            <div className="text-xs font-bold text-blue-400 mb-1 flex items-center gap-1">
-                                                <Database size={12} /> DE Insight
+                                    </div>
+
+                                    {/* Interview Trap Warning Box */}
+                                    <div className="bg-yellow-900/20 border-2 border-yellow-500/50 rounded-lg p-4">
+                                        <div className="flex items-start gap-3">
+                                            <div className="text-yellow-400 text-2xl">⚠️</div>
+                                            <div className="flex-1">
+                                                <div className="text-sm font-bold text-yellow-300 mb-2">Interview Trap: Sorted Array Required!</div>
+                                                <p className="text-sm text-slate-300 leading-relaxed">
+                                                    The Two Pointers technique for deduplication <strong className="text-yellow-300">only works on SORTED arrays</strong>.
+                                                    If the input isn't sorted, you must sort it first (O(N log N)) or use a different approach like a hash set.
+                                                    Don't assume the array is sorted—always ask the interviewer!
+                                                </p>
                                             </div>
-                                            <p className="text-xs text-slate-400 leading-relaxed">
-                                                In Snowflake/Spark, this requires a <strong className="text-blue-300">Sort-Merge</strong> phase.
-                                                Window functions like <code className="bg-slate-800 px-1 rounded">LAG()</code> compare each row with its neighbor.
-                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* DE Insight: Sort-Merge Join */}
+                                    <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                                        <div className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+                                            <Database size={14} />
+                                            DE Insight: Sort-Merge Join in Distributed Systems
+                                        </div>
+                                        <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                                            In <strong className="text-blue-300">Snowflake</strong> and <strong className="text-blue-300">Spark</strong>,
+                                            the Two Pointers pattern appears in <strong className="text-purple-300">Sort-Merge Joins</strong>. Both tables are sorted by join key,
+                                            then pointers scan through each table in parallel, merging matching rows.
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                                            <div className="bg-green-900/20 border border-green-500/30 rounded p-2">
+                                                <div className="font-bold text-green-400 mb-1">✅ Efficient When:</div>
+                                                <div className="text-slate-400">
+                                                    • Data already sorted<br />
+                                                    • Streaming sequential reads<br />
+                                                    • Low memory pressure
+                                                </div>
+                                            </div>
+                                            <div className="bg-orange-900/20 border border-orange-500/30 rounded p-2">
+                                                <div className="font-bold text-orange-400 mb-1">⚠️ Expensive When:</div>
+                                                <div className="text-slate-400">
+                                                    • Unsorted data (must sort)<br />
+                                                    • Network shuffle required<br />
+                                                    • Hash join would be faster
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className="text-xs text-slate-400">
+                                            <strong className="text-blue-300">Window functions</strong> like <code className="bg-slate-800 px-1.5 py-0.5 rounded text-cyan-300">LAG()</code> also
+                                            use this pattern internally—they compare each row with neighbors after sorting, which is why they're efficient for sequential operations.
+                                        </p>
+                                    </div>
+
+                                    {/* Big O Comparison Chart */}
+                                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-6">
+                                        <h4 className="font-bold text-white mb-4 flex items-center gap-2">
+                                            <TrendingUp size={18} />
+                                            Time Complexity: Two Pointers vs Nested Loops
+                                        </h4>
+                                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                                            {/* Chart Controls */}
+                                            <div className="space-y-4">
+                                                <div className="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                                                    <label className="text-xs text-slate-500 font-bold uppercase mb-3 block">
+                                                        Array Size (N): {nValue.toLocaleString()} items
+                                                    </label>
+                                                    <input
+                                                        type="range" min="100" max="5000" step="100"
+                                                        value={nValue} onChange={(e) => setNValue(parseInt(e.target.value))}
+                                                        className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                                                    />
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    <div className="flex justify-between items-center p-3 bg-slate-950 rounded border border-slate-800">
+                                                        <span className="flex items-center gap-2 text-sm">
+                                                            <div className="w-3 h-3 bg-green-500 rounded-full shadow-lg shadow-green-500/50"></div>
+                                                            <span className="text-slate-300">Two Pointers</span>
+                                                        </span>
+                                                        <span className="font-mono font-bold text-green-400">O(N)</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center p-3 bg-slate-950 rounded border border-slate-800">
+                                                        <span className="flex items-center gap-2 text-sm">
+                                                            <div className="w-3 h-3 bg-red-500 rounded-full shadow-lg shadow-red-500/50"></div>
+                                                            <span className="text-slate-300">Nested Loops</span>
+                                                        </span>
+                                                        <span className="font-mono font-bold text-red-400">O(N²)</span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-3">
+                                                    <div className="text-xs font-bold text-purple-400 mb-1">💡 Key Insight</div>
+                                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                                        At N={nValue.toLocaleString()}: Two Pointers does <strong className="text-green-300">{nValue.toLocaleString()} operations</strong>.
+                                                        Nested loops does <strong className="text-red-300">{(nValue * nValue / 1000).toLocaleString()}K operations</strong>!
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* Chart */}
+                                            <div className="lg:col-span-2 h-64 bg-slate-950 rounded-lg border border-slate-800 p-4">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <AreaChart data={useMemo(() => {
+                                                        const points = [];
+                                                        const stepSize = nValue / 20;
+                                                        for (let i = 1; i <= 20; i++) {
+                                                            const n = Math.floor(i * stepSize);
+                                                            points.push({
+                                                                n,
+                                                                twoPointers: n,
+                                                                nestedLoops: Math.floor((n * n) / 1000), // Scaled for visibility
+                                                            });
+                                                        }
+                                                        return points;
+                                                    }, [nValue])} margin={{ top: 10, right: 30, left: 0, bottom: 20 }}>
+                                                        <defs>
+                                                            <linearGradient id="colorTwoPointers" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
+                                                                <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                                                            </linearGradient>
+                                                            <linearGradient id="colorNestedLoops" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
+                                                                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                                                        <XAxis
+                                                            dataKey="n"
+                                                            stroke="#475569"
+                                                            fontSize={11}
+                                                            label={{ value: 'Input Size (N)', position: 'insideBottom', offset: -10, fill: '#64748b' }}
+                                                        />
+                                                        <YAxis
+                                                            stroke="#475569"
+                                                            fontSize={11}
+                                                            label={{
+                                                                value: 'Operations',
+                                                                angle: -90,
+                                                                position: 'insideLeft',
+                                                                fill: '#64748b'
+                                                            }}
+                                                        />
+                                                        <Tooltip
+                                                            contentStyle={{
+                                                                backgroundColor: '#0f172a',
+                                                                borderColor: '#334155',
+                                                                borderRadius: '8px',
+                                                                fontSize: '12px'
+                                                            }}
+                                                            labelStyle={{ color: '#cbd5e1' }}
+                                                        />
+                                                        <Area
+                                                            type="monotone"
+                                                            dataKey="twoPointers"
+                                                            stroke="#22c55e"
+                                                            strokeWidth={3}
+                                                            fill="url(#colorTwoPointers)"
+                                                            name="O(N) - Two Pointers"
+                                                        />
+                                                        <Area
+                                                            type="monotone"
+                                                            dataKey="nestedLoops"
+                                                            stroke="#ef4444"
+                                                            strokeWidth={3}
+                                                            fill="url(#colorNestedLoops)"
+                                                            name="O(N²) - Nested Loops"
+                                                        />
+                                                    </AreaChart>
+                                                </ResponsiveContainer>
+                                            </div>
                                         </div>
                                     </div>
 

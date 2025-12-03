@@ -1,0 +1,9 @@
+src/App.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/App.tsx(5,24): error TS6133: 'Layers' is declared but its value is never read.
+src/App.tsx(5,55): error TS6133: 'Info' is declared but its value is never read.
+src/App.tsx(6,3): error TS6133: 'Home' is declared but its value is never read.
+src/App.tsx(9,3): error TS6133: 'LineChart' is declared but its value is never read.
+src/App.tsx(9,14): error TS6133: 'Line' is declared but its value is never read.
+src/App.tsx(10,12): error TS6133: 'Legend' is declared but its value is never read.
+src/App.tsx(29,7): error TS6133: 'MetricBadge' is declared but its value is never read.
+src/App.tsx(653,31): error TS6133: 'endX' is declared but its value is never read.

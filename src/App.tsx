@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { TwoPointersModule } from './TwoPointersModule';
 import { SlidingWindowModule } from './SlidingWindowModule';
+import { StacksQueuesModule } from './StacksQueuesModule';
 
 // --- Types & Constants ---
 const SAMPLE_DATA = [101, 102, 103, 101, 104];
@@ -96,6 +97,19 @@ const DashboardHome = ({ onModuleSelect }: { onModuleSelect: (module: ModuleType
               <span>Under Development</span>
             </div>
           </div>
+
+          <button
+            onClick={() => setCurrentPage('stacksqueues')}
+            className="bg-slate-900 border border-purple-500/50 hover:border-purple-400 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
+          >
+            <Server size={32} className="text-purple-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Stacks & Queues</h3>
+            <p className="text-slate-400 text-sm mb-4">Learn LIFO vs FIFO with Kafka backpressure simulation</p>
+            <div className="flex items-center gap-2 text-xs text-purple-400 font-mono">
+              <span>Start Learning</span>
+              <ChevronRight size={14} />
+            </div>
+          </button>
         </div>
 
         <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/30 rounded-xl p-6">
